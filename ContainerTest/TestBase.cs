@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 
 namespace ContainerTest
 {
-    public abstract class TestBase
+    public abstract class TestBase : IDisposable
     {
         protected readonly IServiceProvider _container;
         private readonly ITestOutputHelper _output;
@@ -179,5 +179,9 @@ namespace ContainerTest
             Assert.Same(scoped1, scoped7);
         }
 
+        public void Dispose()
+        {
+            (_container as IDisposable)?.Dispose();
+        }
     }
 }
